@@ -1,0 +1,9 @@
+.table-header{
+display: flex;
+align-items: center;
+
+}
+.table-title{
+flex-grow: 1;
+
+}
