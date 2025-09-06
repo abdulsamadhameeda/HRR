@@ -91,7 +91,7 @@
               <button
                 type="button"
                 class="btn btn-outline-danger mx-2"
-                (click)="removeEmp(Employee.id)"
+                (click)="showConfirmDialog(Employee.id)"
               >
                 <i class="bi bi-trash-fill"></i>
               </button>
@@ -257,3 +257,11 @@
   </div>
 </div>
 <!-- dssdfd -->
+@if (showConfirmationDialog) {
+<app-confirmation-dialog
+  [title]="deleteDialogTitle"
+  [body]="deleteDialogBody"
+  (confirm)="confirmEmployeeDelete($event)"
+></app-confirmation-dialog>
+
+}

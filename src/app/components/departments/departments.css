@@ -1,0 +1,13 @@
+.table-header {
+  display: flex;
+  align-items: center;
+}
+.table-title {
+  flex-grow: 1;
+}
+.align-end {
+  align-items: flex-end !important;
+}
+.invalid-input {
+  border-color: red;
+}

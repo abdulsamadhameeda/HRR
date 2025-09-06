@@ -3,10 +3,11 @@ import { Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { Employee } from '../../interfaces/employee-interface';
+import { ConfirmationDialog } from '../../shared-components/confirmation-dialog/confirmation-dialog';
 @Component({
   selector: 'app-employees',
-  imports: [CommonModule, ReactiveFormsModule, NgxPaginationModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxPaginationModule, ConfirmationDialog],
   providers: [DatePipe],
   templateUrl: './employees.html',
   styleUrl: './employees.css',
@@ -181,6 +182,26 @@ export class Employees {
   }
 
   paginationconfig = { itemsPerPage: 3, currentPage: 1 };
+
+  deleteDialogTitle: string = 'Delete confirmation';
+  deleteDialogBody: string = 'are you sure for delete this employee?';
+  showConfirmationDialog: Boolean = false;
+  employeeIdToBeDeleted: Number | null = null;
+
+  showConfirmDialog(empid: number) {
+    this.employeeIdToBeDeleted = empid;
+    this.showConfirmationDialog = true;
+  }
+  removeEmp() {
+    this.employees = this.employees.filter((x) => x.id != this.employeeIdToBeDeleted);
+  }
+  confirmEmployeeDelete(isconfirmed: boolean) {
+    if (isconfirmed) {
+      this.removeEmp();
+    }
+    this.employeeIdToBeDeleted = null;
+    this.showConfirmationDialog = false;
+  }
   changePage(pageNumber: number) {
     this.paginationconfig.currentPage = pageNumber;
   }
@@ -202,21 +223,4 @@ export class Employees {
       });
     }
   }
-  removeEmp(id: number) {
-    this.employees = this.employees.filter((x) => x.id != id);
-  }
-}
-export interface Employee {
-  id: number;
-  name: string;
-  positionId?: number;
-  positionName?: string;
-  birthdate?: Date;
-  isActive: boolean;
-  startDate: Date;
-  phone?: string;
-  managerId?: number | null; // Accept Multiple Data Types
-  managerName?: string | null; // Accept Multiple Data Types
-  departmentId?: number;
-  departmentName?: string;
 }

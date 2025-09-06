@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule, NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { RandomColor } from './directives/random-color';
 import {
@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { ReversePipe } from './pips/reverse-pipe';
 import { Employees } from './components/employees/employees';
-import { Department } from './components/department/department';
+import { Departments } from './components/departments/departments';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +27,9 @@ import { Department } from './components/department/department';
     ReactiveFormsModule,
     CommonModule,
     Employees,
-    Department,
+    Departments,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './app.html',
   styleUrl: './app.css',

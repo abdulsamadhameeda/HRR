@@ -1,0 +1,167 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <h5>
+        <i class="bi bi-funnel-fill"></i>
+        Filter
+      </h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <label for="Employee Position" class="form-label">Department Name</label>
+          <input type="text" class="form-control" id="Employee Position" placeholder="Position" />
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+          <label for="Employee Status" class="form-label">Floor Number</label>
+          <input type="text" class="form-control" id="Employee Status" placeholder="Status" />
+        </div>
+      </div>
+
+      <div class="text-end">
+        <button type="button" class="btn btn-outline-secondary mt-2">
+          <i class="bi bi-search"></i>
+          <span> Search</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-2">
+    <div class="card-header table-header">
+      <div class="table-title">
+        <h5>Department</h5>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#SaveEmployeeModel"
+        >
+          <i class="bi bi-person-plus-fill"></i>
+          <span> Add</span>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            @for (col of departmentTableColumns; track col) {
+            <th>{{ col }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (dep of departments ; track dep; let i = $index) {
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ dep.name }}</td>
+            <td>{{ dep.description }}</td>
+            <td>{{ dep.floornumber }}</td>
+            <td>{{ dep.typename }}</td>
+
+            <td>
+              <button
+                type="button"
+                class="btn btn-outline-success mx-2"
+                data-bs-toggle="modal"
+                data-bs-target="#SaveEmployeeModel"
+              >
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <button type="button" class="btn btn-outline-danger mx-2">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal modal-lg fade"
+  id="SaveEmployeeModel"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Save Department</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="departmentform">
+          <div class="row align-end">
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+              <label for="nameControl" class="form-label">Name</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nameControl"
+                placeholder="Employee Name"
+                formControlName="Name"
+                [class.invalid-input]="
+                  departmentform.get('Name')?.invalid && departmentform.get('Name')?.touched
+                "
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+              <label for="phoneControl" class="form-label">Phone</label>
+              <input
+                type="text"
+                class="form-control"
+                id="phoneControl"
+                placeholder="phone"
+                formControlName="Phone"
+                [class.invalid-input]="
+                  departmentform.get('Phone')?.invalid && departmentform.get('Phone')?.touched
+                "
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+              <label for="dateControl" class="form-label">Start date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dateControl"
+                placeholder="date"
+                formControlName="Startdate"
+                [class.invalid-input]="
+                  departmentform.get('Startdate')?.invalid &&
+                  departmentform.get('Startdate')?.touched
+                "
+              />
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 mb-2">
+              <label for="birthControl" class="form-label">Birth date</label>
+              <input
+                type="date"
+                class="form-control"
+                id="birthControl"
+                placeholder="birthday"
+                formControlName="Birthdate"
+                [class.invalid-input]="
+                  departmentform.get('Birthdate')?.invalid &&
+                  departmentform.get('Birthdate')?.touched
+                "
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" #closeButton>
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
